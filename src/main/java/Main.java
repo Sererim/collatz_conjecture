@@ -1,5 +1,3 @@
-import sun.nio.ch.ThreadPool;
-
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -9,11 +7,11 @@ public class Main {
     try {
       run();
     } catch (Exception e) {
-      print("Weird" + e.getMessage());
+      print("Weird " + e.getMessage());
     }
   }
 
-  private static Void run() throws InterruptedException {
+  private static void run() throws InterruptedException {
     Scanner scanner = new Scanner(System.in);
 
     print("Enter number to calculate Collatz path for.");
@@ -27,8 +25,6 @@ public class Main {
     ExecutorService executor = Executors.newFixedThreadPool(threads);
 
     CollatzPath mainPath = new CollatzPath(n);
-
-    BlockingQueue<Runnable> tasks = new LinkedBlockingQueue<>();
 
     while (!numberStack.isEmpty() && !mainPath.foundEnd()) {
       for (int i = 0; i < threads; i++) {
@@ -44,11 +40,10 @@ public class Main {
     print(mainPath.toString());
 
     scanner.close();
-    return null;
   }
 
   private static Integer getN(Scanner scanner) {
-    int n = 0;
+    int n;
     while (true) {
       try {
         n = scanner.nextInt();

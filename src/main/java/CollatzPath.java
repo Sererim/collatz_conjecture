@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class CollatzPath {
   private final Integer start;
   private       Integer current;
-  private       ArrayList<Integer> road = new ArrayList<>();
+  private final ArrayList<Integer> road = new ArrayList<>();
   private       Boolean finish = false;
 
   public CollatzPath(Integer start) {
@@ -31,9 +31,7 @@ public class CollatzPath {
   }
 
   private boolean isAtEnd() {
-    return (Collatz.end.contains(this.current))
-    ? true
-    : false;
+    return Collatz.end.contains(this.current);
   }
 
   private boolean isInPaths() {
@@ -54,7 +52,7 @@ public class CollatzPath {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("Start : " + this.start + "\n");
+    builder.append("Start : ").append(this.start).append("\n");
     builder.append("[ ");
     for (Integer number : this.road) {
       if (number == -1) {
