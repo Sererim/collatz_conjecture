@@ -27,7 +27,7 @@ public class Main {
     CollatzPath mainPath = new CollatzPath(n);
 
     while (!numberStack.isEmpty() && !mainPath.foundEnd()) {
-      for (int i = 0; i < threads; i++) {
+      for (int i = 0; i < numberStack.size(); i++) {
         Integer number = numberStack.pop();
         executor.submit(() -> {
           print(Collatz.collatzRun(number).toString());
@@ -37,8 +37,11 @@ public class Main {
       Collatz.collatzRun(mainPath);
     }
     executor.shutdownNow();
-    print(mainPath.toString());
 
+    while(!mainPath.foundEnd())
+      Collatz.collatzRun(mainPath);
+
+    print(mainPath.toString());
     scanner.close();
   }
 
